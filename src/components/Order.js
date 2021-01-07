@@ -1,14 +1,14 @@
 function Order(props) {
     function handleInput(e){
       props.inputFunction(e.target.name, e.target.value)
-    }
-  
+}
+
     return (
       <form>
         <h1>Create a burger!</h1>
         <section className="protein">
           <label htmlFor="patty">What type of protein would you like?</label> <br/>
-          <input type="text" name="patty" id="patty"  onChange={handleInput}/>
+          <input type="text" name="patty" id="patty"  onChange={handleInput} />
         </section>
         <hr/>
   
@@ -80,7 +80,7 @@ function Order(props) {
         <hr/>
         <section className="submission">
           
-          <input type="submit" defaultValue="Submit" />
+          <input type="button" defaultValue="Submit" onClick={props.setComplate}/>
         </section>
       </form>
     )
