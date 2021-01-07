@@ -19,12 +19,15 @@ class App extends React.Component {
       bun: '',
       sauce: '',
       extra: '',
-      loggedIn:false
+      loggedIn:false,
+      orderComplated: false
     };
     this.usercheck = this.usercheck.bind(this);
+    this.complateOrder = this.complateOrder.bind(this);
     this.setUserName = this.setUserName.bind(this);
     this.setPassword = this.setPassword.bind(this);
     this.setInput = this.setInput.bind(this);
+    
   }
 
   usercheck(){
@@ -36,7 +39,12 @@ class App extends React.Component {
       alert('Username and Password doesn\'t match');
     }
   }
-
+  complateOrder(e){
+    e.preventDefault()
+    this.setState({
+    orderComplated:true
+    })
+  }
   setUserName(UserName){
     this.setState({
      username:UserName
@@ -54,22 +62,27 @@ class App extends React.Component {
       [property]: value
     })
   }
-
+ 
+ 
   render(){
 
     let currComponent;
-    if(this.state.loggedIn) {
-      currComponent = <Order inputFunction={this.setInput}/>
+  
+  if(this.state.orderComplated){
+      currComponent = <Summary order={this.state}/>
+    } else if (this.state.loggedIn){
+      currComponent = <Order inputFunction={this.setInput} setComplate={this.complateOrder}/>
     } else {
       currComponent = <Login userName={this.setUserName}
       userpassword={this.setPassword} checkUser={this.usercheck}/>
-    }
-
+    }  
+ 
     return (
       <div className="App">
         <img src={logo} alt="Delicious Burger" id="logo" />
         <hr></hr>
         {currComponent}
+        {/* {currComponentLast} */}
       </div>
     );
   }
